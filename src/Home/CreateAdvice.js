@@ -19,7 +19,7 @@ export default function CreateAdvice() {
     getData();
   }, [])
   function clickHandler(){
-    window.location.reload(); 
+    getData();
   }
 
 
