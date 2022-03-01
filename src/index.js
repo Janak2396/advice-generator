@@ -1,12 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
+import CreateAdvice from './Home/CreateAdvice';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <CreateAdvice/>
   </React.StrictMode>,
   document.getElementById('root')
 );
