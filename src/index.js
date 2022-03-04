@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+// import Practice from './Home/practice';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
 import CreateAdvice from './Home/CreateAdvice';
@@ -7,6 +8,7 @@ import CreateAdvice from './Home/CreateAdvice';
 ReactDOM.render(
   <React.StrictMode>
     <CreateAdvice/>
+    {/* <Practice/> */}
   </React.StrictMode>,
   document.getElementById('root')
 );
