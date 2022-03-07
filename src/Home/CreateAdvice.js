@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import './CreateAdvice.css'
-import Ddivider from '../pics/pattern-divider-desktop.svg'
-
+import Ddivider from '../pics/pattern-divider-desktop.svg';
+import Backbtn from '../pics/back-btn.svg';
 import icon from '../pics/icon-dice.svg'
 
 export default function CreateAdvice() {
@@ -9,16 +9,16 @@ export default function CreateAdvice() {
 
   const [obj, setObj] = useState({});
   const [getlist, setGetList] = useState([]);
-
+  const[click, setClick] = useState('Save');
 
   async function getData() {
     const response = await fetch('https://api.adviceslip.com/advice')
     const myJson = await response.json()
     setObj(myJson.slip)
-
+    setClick("Save")
   }
   useEffect(() => {
-
+    
     getData();
 
   }, [])
@@ -26,11 +26,21 @@ export default function CreateAdvice() {
 
   function saveHandler() {
 
-
     let retriveItem = JSON.parse(localStorage.getItem('quotes')) || [];
-    retriveItem.push(obj);
+
+     //console.log("obj " ,obj)
+    const found = retriveItem.find(elemnet => elemnet.id === obj.id)
+    console.log(found)
+    if (found) {
+    }
+    else {
+      // console.log("error", found)
+      retriveItem.push(obj);
+      setClick('Saved !!!')
+    }
     localStorage.setItem(("quotes"), JSON.stringify(retriveItem));
   }
+
 
 
 
@@ -50,11 +60,11 @@ export default function CreateAdvice() {
 
           <div className="id-card">
             <div>
-              <button className="save" onClick={() => saveHandler()}>Save</button>
+              <button className="save" onClick={() => saveHandler()}>{click}</button>
             </div>
             <h1 className="id">ADVICE #{obj.id}</h1>
             <div>
-              <button className="list"  onClick={() => listHandler("card")}>List</button>
+              <button className="list" onClick={() => listHandler("card")}>List</button>
             </div>
           </div>
           <div className="advice-card">
@@ -68,17 +78,21 @@ export default function CreateAdvice() {
           </div>
         </div>
 
-        <div className='back' onClick={() => listHandler("card")}>
-          <ul className="list-item" >
+        <div className='back' >
+          <div>
+            <img  src={ Backbtn} className="back-btn" onClick={() => listHandler("card")}  alt="back-btn"  />
+          </div>
+          <div className="list-item" >
             {getlist.map((item) => {
 
               return (
-                <ul >
-                  <li key={item.id}><span id="item-id">{item.id}</span> {item.advice}</li>
+                <ul  id="items">
+                  <li id="item-id"> # {item.id}</li>
+                  <li  className="item-advice" key={item.id}> {item.advice}</li>
                 </ul>
               )
             })}
-          </ul>
+          </div>
         </div>
       </div>
     </div>
